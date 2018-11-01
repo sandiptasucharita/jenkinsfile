@@ -1,0 +1,24 @@
+node {
+    
+    stage ('checkout')
+    {
+       git 'https://github.com/g0t4/jenkins2-course-spring-boot.git' 
+       echo "***check out completed ***"
+    }
+
+
+
+dir('spring-boot-samples/spring-boot-sample-atmosphere/') {
+    
+    stage ('setting up environment variable')
+   {
+       withEnv(['PATH=C:\\\\Program Files (x86)\\\\Java\\\\jdk1.8.0_66\\\\bin;%path%\';C:\\Windows\\System32;C:\\Users\\kbff530\\Maven\\apache-maven-3.5.4\\bin']) {
+    bat 'mvn clean package'
+   }
+
+    stage ('****Archive begins****')
+
+   archiveArtifacts 'target/*.jar'
+}
+    
+ }}
